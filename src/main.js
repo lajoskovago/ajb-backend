@@ -4,11 +4,13 @@ const port = 3000;
 const mongoose = require('mongoose');
 const { testRouter } = require('./test/test-route');
 const bodyParser = require('body-parser');
+const { articleRouter } = require('./article/article-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/test', testRouter);
+app.use('/api/article', articleRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
