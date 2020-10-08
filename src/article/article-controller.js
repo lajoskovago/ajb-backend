@@ -26,7 +26,7 @@ exports.UpdateArticle = (req, res) => {
             message: "required fields cannot be empty",
         });
     }
-    ArticleModel.findByIdAndUpdate(req.params.id, req.body, {
+    ArticleModel.findByIdAndUpdate(req.query.id, req.body, {
             new: true
         })
         .then((article) => {
