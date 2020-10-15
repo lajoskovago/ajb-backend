@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const { articleRouter } = require('./Article/article-route');
 const { clubRouter } = require('./club/club-route');
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -16,6 +17,7 @@ app.use('/api/club', clubRouter);
 
 
 app.use('/api/test', testRouter);
+app.use('/api/article', articleRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
