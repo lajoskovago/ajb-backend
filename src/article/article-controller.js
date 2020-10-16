@@ -43,3 +43,44 @@ exports.UpdateArticle = (req, res) => {
             });
         });
 };
+
+exports.create = (req, res) => {
+
+    if (!req.body.title || !req.body.subtitle) {
+      return res.status(400).send({
+        message: "Required field can not be empty",
+      });
+    }
+    ArticleModel.create(req.body)
+    
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while creating the Article.",
+        });
+      });
+  };
+
+
+
+  exports.remove = (req, res) => {
+    ArticleModel.findByIdAndRemove(req.query.id)
+      .then((article) =>  {
+        if (!article) {
+          return res.status(404).send({
+            message: "Article not found ",
+          });
+        }
+        res.send({ message: "Article deleted successfully!" });
+      })
+      .catch((err) => {
+        return res.status(500).send({
+          message: "Could not delete article ",
+        });
+      });
+  };
+
+
+
