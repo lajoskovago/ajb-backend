@@ -1,13 +1,20 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const mongoose = require('mongoose');
+const mongoose = require('mongoose' );
 const { testRouter } = require('./test/test-route');
 const bodyParser = require('body-parser');
-const { articleRouter } = require('./article/article-route');
+const { articleRouter } = require('./Article/article-route');
+const { clubRouter } = require('./club/club-route');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api/article', articleRouter);
+app.use('/api/club', clubRouter);
+  
+
 
 app.use('/api/test', testRouter);
 app.use('/api/article', articleRouter);

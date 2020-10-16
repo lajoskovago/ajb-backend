@@ -1,38 +1,4 @@
-//Read
-
-const { ClubModel } = require("./club-model");
-
-exports.findAll = (req, res) => {
-    ClubModel.find()
-    .sort({
-        title: -1
-    })
-    .then((clubs) => {
-        res.status(200).send(clubs);
-    })
-    .catch((err) => {
-        res.status(500).send({
-            message: err.message || "Error Occured",
-        });
-    });
-};
-
-exports.createAll = (req, res) => {
-    ClubModel.create()
-        .sort({
-            title: -1
-        })
-        .then((clubs) => {
-            res.status(200).send(clubs);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || "Error Occured",
-            });
-        });
-};
-
-
+const { ArticleModel } = require("./article-model");
 
 exports.create = (req, res) => {
 
@@ -47,6 +13,8 @@ exports.create = (req, res) => {
       name: req.body.name,
       age: req.body.age,
       gender: req.body.gender,
+      isActive: req.body.isActive,
+      userType: req.body.userType,
     });
     user
       .save()
@@ -62,7 +30,7 @@ exports.create = (req, res) => {
 
 
 
-  exports.deleteAll = (req, res) => {
+  exports.delete = (req, res) => {
     User.findByIdAndRemove(req.params.id)
       .then((user) => {
         if (!user) {
