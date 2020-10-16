@@ -22,7 +22,7 @@ exports.findAll = (req, res) => {
 
 exports.UpdateArticle = (req, res) => {
     if (!req.body.title || !req.body.subtitle || !req.body.content) {
-        res.status(400).send({
+        return res.status(400).send({
             message: "required fields cannot be empty",
         });
     }

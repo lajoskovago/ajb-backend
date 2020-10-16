@@ -60,7 +60,29 @@ exports.create = (req, res) => {
       });
   };
 
-
+  exports.UpdateClub = (req, res) => {
+    if (!req.body.name || !req.body.description || !req.body.category) {
+        return res.status(400).send({
+            message: "required fields cannot be empty",
+        });
+    }
+    ClubModel.findByIdAndUpdate(req.query.id, req.body, {
+            new: true
+        })
+        .then((club) => {
+            if (!club) {
+                return res.status(404).send({
+                    message: "no club found",
+                });
+            }
+            res.status(200).send(club);
+        })
+        .catch((err) => {
+            return res.status(404).send({
+                message: "error while updating the club",
+            });
+        });
+};
 
   exports.deleteAll = (req, res) => {
     User.findByIdAndRemove(req.params.id)
