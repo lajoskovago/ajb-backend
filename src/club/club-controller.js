@@ -18,10 +18,8 @@ exports.findAll = (req, res) => {
 };
 
 exports.createAll = (req, res) => {
-    ClubModel.create()
-        .sort({
-            title: -1
-        })
+    ClubModel.create(req.body)
+    
         .then((clubs) => {
             res.status(200).send(clubs);
         })
