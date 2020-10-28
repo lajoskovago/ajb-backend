@@ -6,6 +6,7 @@ const { testRouter } = require('./test/test-route');
 const bodyParser = require('body-parser');
 const { articleRouter } = require('./Article/article-route');
 const { clubRouter } = require('./club/club-route');
+const { commissionRouter} = require('./commission/commission-route');
 
 
 app.use(bodyParser.json());
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/article', articleRouter);
 app.use('/api/club', clubRouter);
   
-
+app.use('/api/commission', commissionRouter);
 
 app.use('/api/test', testRouter);
 app.use('/api/article', articleRouter);

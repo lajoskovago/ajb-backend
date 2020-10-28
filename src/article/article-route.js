@@ -1,10 +1,10 @@
 const { Router } = require("express");
 
-const { findAll, UpdateArticle, create, remove } = require("./article-controller");
+const { findAll, updateArticle, create, deleteAll } = require("./article-controller");
 
 const articleRouter = Router(); 
 articleRouter.get('/list', findAll);
 articleRouter.put('/update',updateArticle);
 articleRouter.post('/create',create);
-articleRouter.delete('/remove',remove); 
-exports.articleRouter = articleRouter;      
+articleRouter.delete('/delete',deleteAll);
+exports.articleRouter = articleRouter;

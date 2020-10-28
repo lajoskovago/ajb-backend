@@ -59,11 +59,7 @@ exports.create = (req, res) => {
   };
 
   exports.updateClub = (req, res) => {
-    if (!req.body.name || !req.body.description || !req.body.category) {
-        return res.status(400).send({
-            message: "required fields cannot be empty",
-        });
-    }
+    
     ClubModel.findByIdAndUpdate(req.query.id, req.body, {
             new: true
         })
@@ -83,18 +79,18 @@ exports.create = (req, res) => {
 };
 
   exports.deleteAll = (req, res) => {
-    User.findByIdAndRemove(req.params.id)
-      .then((user) => {
-        if (!user) {
+    ClubModel.findByIdAndRemove(req.query.id)
+      .then((club) => {
+        if (!club) {
           return res.status(404).send({
-            message: "User not found ",
+            message: "Club not found ",
           });
         }
         res.send({ message: "User deleted successfully!" });
       })
       .catch((err) => {
         return res.status(500).send({
-          message: "Could not delete user ",
+          message: "Could not delete club ",
         });
       });
   };
