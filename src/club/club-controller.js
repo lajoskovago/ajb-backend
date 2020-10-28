@@ -58,7 +58,7 @@ exports.create = (req, res) => {
       });
   };
 
-  exports.UpdateClub = (req, res) => {
+  exports.updateClub = (req, res) => {
     
     ClubModel.findByIdAndUpdate(req.query.id, req.body, {
             new: true

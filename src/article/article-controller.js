@@ -20,7 +20,7 @@ exports.findAll = (req, res) => {
 
 //Update
 
-exports.UpdateArticle = (req, res) => {
+exports.updateArticle = (req, res) => {
     if (!req.body.title || !req.body.subtitle || !req.body.content) {
         return res.status(400).send({
             message: "required fields cannot be empty",
@@ -65,7 +65,7 @@ exports.create = (req, res) => {
 
 
 
-  exports.remove = (req, res) => {
+  exports.deleteAll = (req, res) => {
     ArticleModel.findByIdAndRemove(req.query.id)
       .then((article) =>  {
         if (!article) {
