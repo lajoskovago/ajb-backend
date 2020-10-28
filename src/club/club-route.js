@@ -4,8 +4,8 @@ const clubRouter = Router();
 
 clubRouter.post("/create", createAll);
 clubRouter.get('/list', findAll);
-clubRouter.put('/update',UpdateClub);
-clubRouter.delete("/:id", deleteAll);
+clubRouter.put('/update',updateClub);
+clubRouter.delete("delete", deleteAll);
 
 exports.clubRouter=clubRouter;
 

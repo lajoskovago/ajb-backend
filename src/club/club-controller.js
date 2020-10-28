@@ -58,7 +58,7 @@ exports.create = (req, res) => {
       });
   };
 
-  exports.UpdateClub = (req, res) => {
+  exports.updateClub = (req, res) => {
     if (!req.body.name || !req.body.description || !req.body.category) {
         return res.status(400).send({
             message: "required fields cannot be empty",
