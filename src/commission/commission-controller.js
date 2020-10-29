@@ -36,4 +36,42 @@ exports.updateCommission = (req, res) => {
                 message: "error while updating the commission",
             });
         });
+
+        exports.create = (req, res) => {
+
+            if (!req.body.id || !req.body.name) {
+              return res.status(400).send({
+                message: "Required field can not be empty",
+              });
+            }
+            ComissionModel.create(req.body)
+            
+              .then((data) => {
+                res.send(data);
+              })
+              .catch((err) => {
+                res.status(500).send({
+                  message: err.message || "Some error occurred while creating the comission.",
+                });
+              });
+          };
+        
+        
+        
+          exports.remove = (req, res) => {
+            ComissionModel.findByIdAndRemove(req.query.id)
+              .then((comission) =>  {
+                if (!comission) {
+                  return res.status(404).send({
+                    message: "Comission not found ",
+                  });
+                }
+                res.send({ message: "Comission deleted successfully!" });
+              })
+              .catch((err) => {
+                return res.status(500).send({
+                  message: "Could not delete comission ",
+                });
+              });
+};
 };
