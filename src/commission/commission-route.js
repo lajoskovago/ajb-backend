@@ -5,7 +5,7 @@ const commissionRouter = Router();
 commissionRouter.post('/create', create);
 commissionRouter.get('/list', findAll);
 commissionRouter.put('/update',updateCommission);
-commissionRouter.remove('/delete', remove);
+commissionRouter.delete('/delete', remove);
 
 exports.commissionRouter=commissionRouter;
 
