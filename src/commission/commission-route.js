@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { findAll, updateCommission, createAll, remove} = require("./commission-controller");
+const { findAll, updateCommission, remove, createAll} = require("./commission-controller");
 const commissionRouter = Router();
 
 commissionRouter.post('/create', createAll);
