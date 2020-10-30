@@ -29,7 +29,7 @@ exports.SendRecoverEmail=async(req,res,next) => {
 
        //creating a nodemailer yahoo transporter
        const transporter = nodemailer.createTransport({
-         //un email pt test de pe EtherealMail
+       //un email pt test de pe EtherealMail
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {

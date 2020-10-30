@@ -11,8 +11,13 @@ const port = process.env.PORT || 3000;
 
 const authentication=require('./Authentication/path/auth-routes');
 
-
 const app = express();
+
+const { testRouter } = require('./test/test-route');
+const { articleRouter } = require('./Article/article-route');
+const { clubRouter } = require('./club/club-route');
+const { commissionRouter} = require('./commission/commission-route');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,6 +25,13 @@ app.use(cookieParser());
 
 app.use('/api/v1/authentication',authentication)
 
+app.use('/api/article', articleRouter);
+app.use('/api/club', clubRouter);
+  
+app.use('/api/commission', commissionRouter);
+
+app.use('/api/test', testRouter);
+app.use('/api/article', articleRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

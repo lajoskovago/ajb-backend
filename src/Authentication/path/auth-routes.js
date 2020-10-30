@@ -28,12 +28,12 @@ router.route('/Login').post(LogIn,(req,res)=>{
 
 //all roles page
 router.route('/HomePage').get(authorizeUser(ROLES.Admin,ROLES.Customer),(req,res) => {
-    res.status(200).json({message:"hi you are on the home page where everyone has access"})
+    res.status(200).json("hi you are on the home page where everyone has access")
 });
 
 //admin only page
 router.route('/AdminPage').get(authorizeUser(ROLES.Admin),(req,res) => {
-res.status(200).json({message:"hi you are on the admin page where only u have access u rock star"})
+res.status(200).json("hi you are on the admin page where only u have access u rock star")
 });
 
 //customer only page
@@ -43,7 +43,7 @@ res.status(200).json(`Hi this is a customer only page`)
 
 //refresh token
 router.route('/RefreshToken').post(refreshedToken,(req,res) => {
-res.status(200).json({message:"hi this is the refresh page the new token should be in the headers section"})
+res.status(200).json("hi this is the refresh page the new token should be in the headers section")
 });
 
 //logout
