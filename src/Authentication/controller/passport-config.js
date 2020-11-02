@@ -1,22 +1,22 @@
-require('dotenv').config({path:'./src/config/.env'})
-const passport =require('passport');
-const LocalStrategy=require('passport-local').Strategy;
-const JWTStrategy =require('passport-jwt').Strategy;
-const bcrypt=require('bcrypt');
-const UserModel =require('../model/UserModel');
+require('dotenv').config( {path:'./src/config/.env'} )
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const JWTStrategy = require('passport-jwt').Strategy;
+const bcrypt = require('bcrypt');
+const UserModel = require('../model/user-model');
 
 //local strategy for simple credential based log-in
-passport.use(new LocalStrategy({
+passport.use(new LocalStrategy( {
     usernameField:"email",
     passwordField:"password",
 },async(email,password,done) => {
 
     try {
-        const UserDocument=await UserModel.findOne({email}).exec();
-        const passwordMatch =await bcrypt.compare(password,UserDocument.password);
-        if(passwordMatch){
-            return done(null,UserDocument);
-        }else{
+        const userDocument = await UserModel.findOne( {email} ).exec();
+        const passwordMatch = await bcrypt.compare(password,userDocument.password);
+        if(passwordMatch) {
+            return done(null,userDocument);
+        }else {
             return done('Incorrect Password');
         }
     } catch (error) {
@@ -29,7 +29,7 @@ passport.use('jwt',new JWTStrategy({
     secretOrKey: process.env.ACCESS_TOKEN_SECRET
 },
 (jwtPayload,done) => {
-    if(Date.now()>jwtPayload.expires){
+    if(Date.now()>jwtPayload.expires) {
         return done('jwt session expired');
     }
     return done(null,jwtPayload);
@@ -48,13 +48,13 @@ passport.use('jwtRefresh',new JWTStrategy({
 
 //jwt strategy for recover password functionality
 passport.use('jwtRecover',new JWTStrategy({
-    jwtFromRequest:req =>req.params.token,
+    jwtFromRequest:req => req.params.token,
     secretOrKey: process.env.RECOVER_TOKEN_SECRET
 },
 (jwtPayload,done) => {
-    if(Date.now()>jwtPayload.expires){
+    if(Date.now()>jwtPayload.expires) {
         return done('jwt expired');
     }
-    return done(null);//
+    return done(null,jwtPayload);
 }
 ));

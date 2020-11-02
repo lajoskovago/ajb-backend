@@ -9,9 +9,9 @@ connectDB();
 
 const port = process.env.PORT || 3000;
 
-const authentication=require('./Authentication/path/auth-routes');
-
 const app = express();
+
+const authentication=require('./authentication/path/auth-routes');
 
 const { testRouter } = require('./test/test-route');
 const { articleRouter } = require('./Article/article-route');
@@ -27,7 +27,7 @@ app.use('/api/v1/authentication',authentication)
 
 app.use('/api/article', articleRouter);
 app.use('/api/club', clubRouter);
-  
+
 app.use('/api/commission', commissionRouter);
 
 app.use('/api/test', testRouter);
