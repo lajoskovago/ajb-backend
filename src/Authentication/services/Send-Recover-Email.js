@@ -11,10 +11,17 @@ exports.SendRecoverEmail = async(req,res,next) => {
         const email = req.body.email;
         const user = await UserModel.findOne( { email } )
 
+        if(!user){
+          return res.status(400).json({
+            error: "No user whit that email was found in the database",
+            data: [" "]
+          })
+        }
+
         //creating our jwt payload
         const recoverPayload = {
-          secret:process.env.RECOVER_PAYLOAD_SECRET,
-          expires:Date.now() + parseInt(process.env.JWT_RECOVER_EXPIRATION),
+          secret: process.env.RECOVER_PAYLOAD_SECRET,
+          expires: Date.now() + parseInt(process.env.JWT_RECOVER_EXPIRATION),
       };
 
        //creating our jwt token
@@ -49,7 +56,10 @@ exports.SendRecoverEmail = async(req,res,next) => {
           //sending the mail whit the mail options to the sender
           transporter.sendMail(mailOptions,(err) => {
             if(err){
-              return res.send(`this is your error:${err}`);
+              return res.json({
+                error: err,
+                data: [" "]
+              });
             }else{
               next();
             }
