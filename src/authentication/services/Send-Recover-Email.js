@@ -52,13 +52,13 @@ exports.SendRecoverEmail = async(req,res,next) => {
               'http://' + req.headers.host + '/api/v1/authentication/Reset/' + user.resetPasswordToken + '\n\n' +
               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
           };
-
+           req.tokenVar= user.resetPasswordToken;
           //sending the mail whit the mail options to the sender
           transporter.sendMail(mailOptions,(err) => {
             if(err){
               return res.json({
                 error: err,
-                data: [" "]
+                data: [" "],
               });
             }else{
               next();
