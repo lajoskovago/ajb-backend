@@ -14,7 +14,7 @@ exports.SendRecoverEmail = async(req,res,next) => {
         if(!user){
           return res.status(400).json({
             error: "No user whit that email was found in the database",
-            data: [" "]
+            data: null
           })
         }
 
@@ -58,7 +58,7 @@ exports.SendRecoverEmail = async(req,res,next) => {
             if(err){
               return res.json({
                 error: err,
-                data: [" "],
+                data: null,
               });
             }else{
               next();

@@ -10,13 +10,13 @@ exports.refreshedToken = (req, res, next) => {
            if(error) {
             return res.status(400).json({
                 error: error,
-                data: [" "]
+                data: null
               })
            }
            if(!payload) {
             return res.status(400).json({
                 error: "The payload is undefined/You don t have a refresh token",
-                data: [" "]
+                data: null
              })
            }
 

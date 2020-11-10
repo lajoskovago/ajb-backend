@@ -10,7 +10,7 @@ exports.Register = async (req,res,next) => {
     if (foundUser) {
         return res.status(400).json({
             error: 'Email is already in use',
-            data: [" "]
+            data: null
         });
     } else {
         const passwordHash = await bcrypt.hash(password,hashConst);

@@ -17,7 +17,7 @@ const { logoutUser } = require('../controller/logout-controller');
 //sign-up
 router.route('/register').post(Register,(req,res) => {
     res.status(200).json({
-        error: " ",
+        error: null,
         data: [
             {
                 message: 'hi u just singed-in',
@@ -31,7 +31,7 @@ router.route('/register').post(Register,(req,res) => {
 //sign-in
 router.route('/login').post(LogIn,(req,res) => {
     res.status(200).json({
-        error: " ",
+        error: null,
         data: [
             {
                 message: 'hey you just logged in',
@@ -45,7 +45,7 @@ router.route('/login').post(LogIn,(req,res) => {
 //all roles page
 router.route('/home_page').get(authorizeUser(ROLES.Admin,ROLES.Customer),(req,res) => {
     res.status(200).json({
-        error: " ",
+        error: null,
         data: [
             {
                 message: "hi you are on the home page where everyone has access",
@@ -59,7 +59,7 @@ router.route('/home_page').get(authorizeUser(ROLES.Admin,ROLES.Customer),(req,re
 //admin only page
 router.route('/admin_page').get(authorizeUser(ROLES.Admin),(req,res) => {
 res.status(200).json({
-    error: " ",
+    error: null,
     data: [
         {
             message: "hi you are on the admin page where only u have access u rock star",
@@ -73,7 +73,7 @@ res.status(200).json({
 //customer only page
 router.route('/customer_only_page').get(authorizeUser(ROLES.Customer),(req,res) => {
 res.status(200).json({
-    error: " ",
+    error: null,
     data: [
         {
             message: "Hi this is a customer only page",
@@ -87,7 +87,7 @@ res.status(200).json({
 //refresh token hi this is the refresh page the new token should be in the headers section
 router.route('/refresh_token').post(refreshedToken,(req,res) => {
 res.status(200).json({
-    error: " ",
+    error: null,
     data: [
         {
             message: "hi this is the refresh page the new token should be in the headers section",
@@ -101,7 +101,7 @@ res.status(200).json({
 //logout
 router.route('/logout').delete(logoutUser,(req,res) => {
    res.status(200).json({
-      error: " ",
+      error: null,
       data: [
             {
                 message: 'u are logged out and the tokens were deleted from the cookies'
@@ -113,7 +113,7 @@ router.route('/logout').delete(logoutUser,(req,res) => {
 //send reset email`The request was accepted.A reset email should be sent to ${req.body.email}.Please check your email`
 router.route('/forgot').post(SendRecoverEmail,(req,res) => {
 res.status(200).json({
-    error: " ",
+    error: null,
     data: [
         {
             message:`The request was accepted.A reset email should be sent to ${req.body.email}.Please check your email`,
@@ -126,7 +126,7 @@ res.status(200).json({
 //reset password
 router.route('/reset/:token').post(ResetPassword,(req,res) => {
 res.status(200).json({
-    error: " ",
+    error: null,
     data: [
         {
             message: 'Your password has been reset'

@@ -14,12 +14,12 @@ exports.ResetPassword = (req,res,next)=> {
          if(error)
             return res.status(400).json({
                 error: error,
-                data: [" "]
+                data: null
             })
          if(!payload) {
             return res.status(400).json({
                 error: 'The payload is undefined',
-                data: [" "]
+                data: null
             })
          }
 
@@ -28,7 +28,7 @@ exports.ResetPassword = (req,res,next)=> {
      if (!user) {
          return res.status(400).json({
              error: 'Password reset token is invalid or has expired.',
-             data: [" "]
+             data: null
             });
      }
 

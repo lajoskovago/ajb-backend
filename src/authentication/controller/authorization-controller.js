@@ -8,13 +8,13 @@ exports.authorizeUser = (...roles) => (req, res, next) => {
            if(error) {
             return res.status(400).json({
               error: error,
-              data: [" "]
+              data: null
             })
            }
            if(!payload) {
             return res.status(400).json({
               error: "the payload is undefined",
-              data: [" "]
+              data: null
              })
            }
           const hasRole = roles.find(role => payload.role === role)

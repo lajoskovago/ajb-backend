@@ -10,13 +10,13 @@ exports.LogIn = (req,res,next) => {
         if(error) {
          return res.status(400).json({
             error: error,
-            data: [" "]
+            data: null
          })
          }
          if(!user) {
             return res.status(400).json({
                error: "the user is undefined/there is no user whit this email",
-               data: [" "]
+               data: null
              })
          }
 
@@ -36,7 +36,7 @@ exports.LogIn = (req,res,next) => {
                return res.status(500).json(
                   {
                       error: error,
-                      data: [" "]
+                      data: null
                   });
              }
 
