@@ -21,7 +21,7 @@ exports.refreshedToken = (req, res, next) => {
         };
            const token = jwt.sign(JSON.stringify(newPayload),process.env.ACCESS_TOKEN_SECRET);
 
-           res.cookie('jwt',token,{httpOnly:true,secure:true});
+           res.cookie('jwt',token,{httpOnly:true});
            next();
         }
     )(req,res)

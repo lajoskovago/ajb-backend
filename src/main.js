@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv =require('dotenv');
 const cookieParser = require('cookie-parser');
-dotenv.config({path:'./src/config/.env'});
-const connectDB =require('./config/connectdb')
+dotenv.config({path:'./config/.env'});
+const connectDB =require('./config/connectdb');
 
 connectDB();
 
@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 const authentication=require('./authentication/path/auth-routes');
+
+
+const users=require('./users/path/users-routes');
+const dashUsers=require('./dashboardUsers/path/dashUsers-routes');
 
 const { testRouter } = require('./test/test-route');
 const { articleRouter } = require('./Article/article-route');
@@ -32,6 +36,9 @@ app.use('/api/commission', commissionRouter);
 
 app.use('/api/test', testRouter);
 app.use('/api/article', articleRouter);
+
+app.use('/api/users', users);
+app.use('/api/dashboard/users', dashUsers);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
