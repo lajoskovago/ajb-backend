@@ -7,7 +7,7 @@ exports.findAll = (req, res) => {
     .sort({
       title: -1
     })
-    .then((clubs) => {
+    .then((commissions) => {
       res.status(200).send(commissions);
     })
     .catch((err) => {
@@ -38,37 +38,31 @@ exports.updateCommission = (req, res) => {
     });
 };
 
-exports.create = (req, res) => {
-
-  if (!req.body.id || !req.body.name) {
-    return res.status(400).send({
-      message: "Required field can not be empty",
-    });
-  }
-  ComissionModel.create(req.body)
-
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the comission.",
-      });
-    });
+exports.createAll = (req, res) => {
+    CommissionModel.create(req.body)
+    
+        .then((commissions) => {
+            res.status(200).send(commissions);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Error Occured",
+            });
+        });
 };
 
 
 
 exports.remove = (req, res) => {
   
-  ComissionModel.findByIdAndRemove(req.query.id)
-    .then((comission) => {
-      if (!comission) {
+  CommissionModel.findByIdAndRemove(req.query.id)
+    .then((commission) => {
+      if (!commission) {
         return res.status(404).send({
-          message: "Comission not found ",
+          message: "Commission not found ",
         });
       }
-      res.send({ message: "Comission deleted successfully!" });
+      res.send({ message: "Commission deleted successfully!" });
     })
     .catch((err) => {
       return res.status(500).send({
