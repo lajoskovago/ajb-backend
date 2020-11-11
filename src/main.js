@@ -14,7 +14,7 @@ const app = express();
 const authentication=require('./authentication/path/auth-routes');
 
 const { testRouter } = require('./test/test-route');
-const { articleRouter } = require('./Article/article-route');
+const { articleRouter } = require('./article/article-route');
 const { clubRouter } = require('./club/club-route');
 const { commissionRouter} = require('./commission/commission-route');
 

@@ -7,8 +7,8 @@ const UserModel = require('../model/user-model');
 
 //local strategy for simple credential based log-in
 passport.use(new LocalStrategy( {
-    usernameField:"email",
-    passwordField:"password",
+    usernameField: "email",
+    passwordField: "password",
 },async(email,password,done) => {
 
     try {
@@ -25,7 +25,7 @@ passport.use(new LocalStrategy( {
 }));
 //jwt strategy for role based jwt token authorization
 passport.use('jwt',new JWTStrategy({
-    jwtFromRequest:req => req.cookies.jwt,
+    jwtFromRequest: req => req.cookies.jwt,
     secretOrKey: process.env.ACCESS_TOKEN_SECRET
 },
 (jwtPayload,done) => {
@@ -38,7 +38,7 @@ passport.use('jwt',new JWTStrategy({
 
 //jwt strategy for refresh token functionality
 passport.use('jwtRefresh',new JWTStrategy({
-    jwtFromRequest:req => req.cookies.refresh,
+    jwtFromRequest: req => req.cookies.refresh,
     secretOrKey: process.env.REFRESH_TOKEN_SECRET
 },
 (jwtPayload,done) => {
@@ -48,7 +48,7 @@ passport.use('jwtRefresh',new JWTStrategy({
 
 //jwt strategy for recover password functionality
 passport.use('jwtRecover',new JWTStrategy({
-    jwtFromRequest:req => req.params.token,
+    jwtFromRequest: req => req.params.token,
     secretOrKey: process.env.RECOVER_TOKEN_SECRET
 },
 (jwtPayload,done) => {
