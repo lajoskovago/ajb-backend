@@ -8,21 +8,21 @@ const  UserInfoSchema = new mongoose.Schema({
         type:String,
     },
        email: {
-           type:String,
+           type: String,
        },
        phone: {
         type:String,
     },
        password: {
-           type:String
+           type: String
        },
        role: {
-           type:String,
-           default:'customer'
+           type: String,
+           default: 'customer'
        },
        createdAt: {
-           type:Date,
-           default:Date.now
+           type: Date,
+           default: Date.now
        },
 
        resetPasswordToken: String,
