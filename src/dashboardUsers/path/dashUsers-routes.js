@@ -57,7 +57,7 @@ router
   .route("/edit-user")
   .put(authorizeUser(process.env.ADMIN_ROLE),updateAnUser(), (req, res) => {
     res.status(200).json({
-      error : nul,
+      error : null,
       data : [{
         message: "Your data has been successfully registered!(Your are the admin)"
       }]
