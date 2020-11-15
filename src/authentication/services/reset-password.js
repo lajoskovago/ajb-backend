@@ -1,6 +1,4 @@
 const UserModel = require('../model/user-model');
-const dotenv = require('dotenv');
-dotenv.config( {path:'./src/config/.env'} );
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 require('../controller/passport-config');
