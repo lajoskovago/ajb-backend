@@ -3,24 +3,23 @@ require("../../authentication/controller/passport-config");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.listAllUsers = ()=> async (req, res, next) => {
-  var userMap = {};
-  var countAllUsers = 0;
+  const userMap = {};
+  const countAllUsers = await UserModel.countDocuments().exec();
     await UserModel.find().then((users) => {
  
         users.forEach(function (user) {
-        var info = {};
+        let info = {};
         
-        info.name = user.name;
         info.firstname = user.firstname;
+        info.lastname = user.lastname;
         info.email = user.email;
         info.phone = user.phone;
         info.role = user.role;
         userMap[user._id] = info;
-        countAllUsers++;
       });
     });
     req.users = userMap;
     req.numberOfUsers = countAllUsers;
     next();
- (req, res);
+
 };

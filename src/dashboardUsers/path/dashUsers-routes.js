@@ -1,18 +1,17 @@
 const express = require("express");
 const router = express.Router();
-require("dotenv").config({ path: "./src/config/.env" });
 
-const { createAnUser } = require("../controller/create-userByAdmin");
+const { createUser } = require("../controller/create-userByAdmin");
 const { listAllUsers } = require("../controller/view-allUsers");
 const { getUser } = require("../controller/get-userByAdmin");
-const { updateAnUser } = require("../controller/edit-userByAdmin");
-const { removeAnUser } = require("../controller/delete-userByAdmin");
+const { updateUser } = require("../controller/edit-userByAdmin");
+const { removeUser } = require("../controller/delete-userByAdmin");
 const { authorizeUser } = require("../../authentication/controller/authorization-controller");
 
 // Create user by only Admin
 router
   .route("/create-user")
-  .post(authorizeUser(process.env.ADMIN_ROLE),createAnUser(), (req, res) => {
+  .post(authorizeUser(process.env.ADMIN_ROLE),createUser(), (req, res) => {
     res.status(200).json({
       error: null,
       data: [{
@@ -55,7 +54,7 @@ router
 //Edit user profile
 router
   .route("/edit-user")
-  .put(authorizeUser(process.env.ADMIN_ROLE),updateAnUser(), (req, res) => {
+  .put(authorizeUser(process.env.ADMIN_ROLE),updateUser(), (req, res) => {
     res.status(200).json({
       error : null,
       data : [{
@@ -68,7 +67,7 @@ router
 //Delete user
 router
   .route("/delete-user")
-  .delete(authorizeUser(process.env.ADMIN_ROLE),removeAnUser(), (req, res) => {
+  .delete(authorizeUser(process.env.ADMIN_ROLE),removeUser(), (req, res) => {
     res.status(200).send({
       error : null,
       data : [{

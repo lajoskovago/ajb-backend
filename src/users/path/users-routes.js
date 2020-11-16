@@ -6,14 +6,14 @@ const { getProfile } = require('../controller/view-profile');
 const { updateProfile } = require('../controller/edit-profile');
 
 // Curent user profile
-router.route('/profile').get(authorizeUser(process.env.ADMIN_ROLE),getProfile,(req, res) => {
+router.route('/profile').get(authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),getProfile,(req, res) => {
 
     res.status(200).json({
         error: null,
         data : [{
             message:'Welcome',
-            name:req.name,
             firstname:req.firstname,
+            lastname:req.lastname,
             email:req.email,
             phone:req.phone,
             role:req.role,
@@ -24,7 +24,7 @@ router.route('/profile').get(authorizeUser(process.env.ADMIN_ROLE),getProfile,(r
  });
 
  //Edit user profile
- router.route('/edit-profile').put(authorizeUser(process.env.ADMIN_ROLE),updateProfile,(req, res) => {
+ router.route('/edit-profile').put(authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),updateProfile,(req, res) => {
 
     res.status(200).json({
         error: null,

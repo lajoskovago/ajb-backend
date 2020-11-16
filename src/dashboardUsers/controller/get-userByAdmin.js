@@ -22,8 +22,8 @@ exports.getUser =() => async(req,res,next) => {
              });
          } else {
 
-        user.name=foundUser.name,
-        user.firstname=foundUser.firstname, 
+        user.firstname=foundUser.firstname,
+        user.lastname=foundUser.lastname, 
         user.email=foundUser.email,
         user.phone=foundUser.phone,
         user.role=foundUser.role,
@@ -33,7 +33,6 @@ exports.getUser =() => async(req,res,next) => {
         next();
          }  
        
-   (req,res)
 }
 
 

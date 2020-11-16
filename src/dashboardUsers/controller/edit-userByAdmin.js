@@ -1,13 +1,13 @@
 require("../../authentication/controller/passport-config");
 
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const UserModel = require("../../authentication/model/user-model");
 
-exports.updateAnUser = () => async (req, res, next) => {
+exports.updateUser = () => async (req, res, next) => {
   {
     const hashConst = 10;
-    var obj = {};
+    const obj = {};
 
     const id = mongoose.Types.ObjectId.isValid(req.body._id);
     if (!id) {
@@ -16,9 +16,9 @@ exports.updateAnUser = () => async (req, res, next) => {
         data: [],
       });
     } else {
-      const keys = ["name", "firstname", "phone", "role", "password"];
+      const keys = ["firstname", "lastname", "phone", "role", "password"];
 
-      for (var itemsFromBodyIndex in req.body) {
+      for (let itemsFromBodyIndex in req.body) {
         if (keys.includes(itemsFromBodyIndex)) {
           if (itemsFromBodyIndex == "password") {
             const passwordHash = await bcrypt.hash(
@@ -47,5 +47,4 @@ exports.updateAnUser = () => async (req, res, next) => {
       }
     }
   }
-  req, res;
 };

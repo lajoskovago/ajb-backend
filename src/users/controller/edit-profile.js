@@ -3,12 +3,12 @@ require("../../authentication/controller/passport-config");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.updateProfile = async (req, res, next) => {
-  var obj = {};
-  var email = {};
+  const obj = {};
+  const email = {};
   email.email = req.userEmail;
-  const keys = ["name", "firstname", "phone"];
+  const keys = ["firstname", "lastname", "phone"];
 
-  for (var itemsFromBodyIndex in req.body) {
+  for (let itemsFromBodyIndex in req.body) {
     if (keys.includes(itemsFromBodyIndex)) {
       obj[itemsFromBodyIndex] = req.body[itemsFromBodyIndex];
     }
@@ -24,5 +24,4 @@ exports.updateProfile = async (req, res, next) => {
     next();
   }
 
-  req, res;
 };

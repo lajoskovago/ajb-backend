@@ -3,7 +3,7 @@ require("../../authentication/controller/passport-config");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.getProfile = async (req, res, next) => {
-      var email = {};
+      const email = {};
       email.email = req.userEmail;
       const foundUser = await UserModel.findOne(email);
 
@@ -13,13 +13,11 @@ exports.getProfile = async (req, res, next) => {
           data : []
         });
       } else {
-        (req.name = foundUser.name),
-          (req.firstname = foundUser.firstname),
-          (req.email = foundUser.email),
-          (req.phone = foundUser.phone),
-          (req.role = foundUser.role),
+        req.firstname = foundUser.firstname,
+          req.lastname = foundUser.lastname,
+          req.email = foundUser.email,
+          req.phone = foundUser.phone,
+          req.role = foundUser.role,
           next();
       }
-    
-  (req, res);
 };

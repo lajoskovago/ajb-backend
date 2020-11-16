@@ -1,9 +1,9 @@
 require("../../authentication/controller/passport-config");
 
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const UserModel = require("../../authentication/model/user-model");
 
-exports.removeAnUser = () => async (req, res, next) => {
+exports.removeUser = () => async (req, res, next) => {
   {
  
         const id = mongoose.Types.ObjectId.isValid(req.body._id);
@@ -41,6 +41,5 @@ exports.removeAnUser = () => async (req, res, next) => {
         }
         }
       }
-    (req, res);
   };
 
