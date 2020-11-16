@@ -9,7 +9,7 @@ exports.getProfile = async (req, res, next) => {
 
       if (!foundUser) {
         return res.status(400).json({
-          error : "Sorry, your data cannot be accessed",
+          error : "Sorry, your data cannot be accessed!",
           data : []
         });
       } else {

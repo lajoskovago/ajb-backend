@@ -15,7 +15,7 @@ router
     res.status(200).json({
       error: null,
       data: [{
-       message: "Your data has been successfully registered!(Your are the admin)",
+       message: "Your data has been successfully registered!(You are the admin)",
        newaccount: req.email,
       }]
       
@@ -58,7 +58,7 @@ router
     res.status(200).json({
       error : null,
       data : [{
-        message: "Your data has been successfully registered!(Your are the admin)"
+        message: "Your data has been successfully registered!(You are the admin)"
       }]
       
     });
@@ -71,7 +71,8 @@ router
     res.status(200).send({
       error : null,
       data : [{
-        message: "The user with next id " +req.id +" was deleted successfully.!(Your are the admin)"
+        message: "The user was deleted successfully.!(You are the admin)",
+        providedId :req.id
       }]
       
     });

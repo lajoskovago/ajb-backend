@@ -9,10 +9,10 @@ exports.updateUser = () => async (req, res, next) => {
     const hashConst = 10;
     const obj = {};
 
-    const id = mongoose.Types.ObjectId.isValid(req.body._id);
-    if (!id) {
+    const validationId = mongoose.Types.ObjectId.isValid(req.body._id);
+    if (!validationId) {
       return res.status(400).json({
-        error: "Sorry, but your id is inccorect!",
+        error: "Sorry, but provided id is inccorect!",
         data: [],
       });
     } else {
@@ -38,7 +38,7 @@ exports.updateUser = () => async (req, res, next) => {
         return res
           .status(400)
           .json({
-            error: "Sorry, this user no longer exists in the database",
+            error: "Sorry, this user doesn't exists in the database!",
             data: []
           });
       } else {

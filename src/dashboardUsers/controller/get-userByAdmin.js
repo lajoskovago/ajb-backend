@@ -17,7 +17,7 @@ exports.getUser =() => async(req,res,next) => {
          
          if (!foundUser) {
              return res.status(400).json({
-                error: 'Sorry, but user not be found!',
+                error: 'Sorry, but the user cannot be found!',
                 data: []
              });
          } else {

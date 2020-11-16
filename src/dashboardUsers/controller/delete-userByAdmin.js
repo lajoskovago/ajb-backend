@@ -6,10 +6,10 @@ const UserModel = require("../../authentication/model/user-model");
 exports.removeUser = () => async (req, res, next) => {
   {
  
-        const id = mongoose.Types.ObjectId.isValid(req.body._id);
-        if (!id) {
+        const validationId = mongoose.Types.ObjectId.isValid(req.body._id);
+        if (!validationId) {
           return res.status(400).json({
-            error: "Sorry, but your id is inccorect!",
+            error: "Sorry, but provided id is inccorect!",
             data: []
           });
         } else {
@@ -20,17 +20,19 @@ exports.removeUser = () => async (req, res, next) => {
             return res
               .status(400)
               .json({
-                error: "Sorry, this user " +req.body._id +" no longer exists in the database",
+                error: "Sorry, user with provided id doesn't exist in the database!",
                 data: []
               }
                 
               );
           } else {
+      // Here we have a condition which don't allow an admin to delete his own account 
+
             if(req.userEmail==foundUser.email){
               return res
               .status(400)
               .json({
-                error: "Sorry, your account cannot be deleted",
+                error: "Sorry, your account cannot be deleted!",
                 data: []
               })
             } else {
