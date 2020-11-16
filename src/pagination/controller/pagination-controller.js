@@ -6,12 +6,9 @@ exports.paginate = (model) => async (req, res, next) => {
       res.status(400).json({ message:  'The limit parameter must have a positive value!'})
     }else{
   
-    var results = {};
+    const results = {};
     const startIndex = (page) * limit;
-    const endIndex = page * limit;
-    results.lastPage = Math.floor(await model.countDocuments().exec()/limit);
-  
-  
+    results.lastPage = Math.ceil(await model.countDocuments().exec()/limit)-1;
     if (page < results.lastPage) {
       results.next = {
         page: page + 1,
