@@ -16,6 +16,7 @@ const authentication=require('./authentication/path/auth-routes');
 
 const users=require('./users/path/users-routes');
 const dashUsers=require('./dashboardUsers/path/dashUsers-routes');
+const paginate= require('./pagination/path/pagination-routes');
 
 const { testRouter } = require('./test/test-route');
 const { articleRouter } = require('./article/article-route');
@@ -39,6 +40,7 @@ app.use('/api/article', articleRouter);
 
 app.use('/api/users', users);
 app.use('/api/dashboard/users', dashUsers);
+app.use('/api/pagination', paginate);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
