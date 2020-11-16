@@ -1,8 +1,6 @@
-require("dotenv").config({ path: "./src/config/.env" });
 require("../../authentication/controller/passport-config");
 
 var mongoose = require("mongoose");
-const passport = require("passport");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.removeAnUser = () => async (req, res, next) => {

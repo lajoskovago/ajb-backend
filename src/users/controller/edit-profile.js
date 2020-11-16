@@ -1,7 +1,5 @@
-require("dotenv").config({ path: "./src/config/.env" });
 require("../../authentication/controller/passport-config");
 
-const passport = require("passport");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.updateProfile = async (req, res, next) => {

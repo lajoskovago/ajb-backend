@@ -7,7 +7,7 @@ const { listAllUsers } = require("../controller/view-allUsers");
 const { getUser } = require("../controller/get-userByAdmin");
 const { updateAnUser } = require("../controller/edit-userByAdmin");
 const { removeAnUser } = require("../controller/delete-userByAdmin");
-const {authorizeUser} = require("../../authentication/controller/authorization-controller");
+const { authorizeUser } = require("../../authentication/controller/authorization-controller");
 
 // Create user by only Admin
 router
@@ -57,7 +57,7 @@ router
   .route("/edit-user")
   .put(authorizeUser(process.env.ADMIN_ROLE),updateAnUser(), (req, res) => {
     res.status(200).json({
-      error : nul,
+      error : null,
       data : [{
         message: "Your data has been successfully registered!(Your are the admin)"
       }]
