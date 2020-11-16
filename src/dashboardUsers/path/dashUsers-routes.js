@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-require("dotenv").config({ path: "./src/config/.env" });
 
 const { createAnUser } = require("../controller/create-userByAdmin");
 const { listAllUsers } = require("../controller/view-allUsers");
