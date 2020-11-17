@@ -6,10 +6,10 @@ const _ = require('lodash');
 
 const mongoose = require('mongoose' );
 const bodyParser = require('body-parser');
-const dotenv =require('dotenv');
+const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, './config/.env')});
 const cookieParser = require('cookie-parser');
-dotenv.config({path:'./src/config/.env'});
-const connectDB =require('./config/connectdb')
+const connectDB =require('./config/connectdb');
 
 connectDB();
 

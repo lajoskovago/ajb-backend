@@ -1,4 +1,3 @@
-require('dotenv').config( {path:'./src/config/.env'} )
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('./passport-config');

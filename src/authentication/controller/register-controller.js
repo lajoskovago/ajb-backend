@@ -1,4 +1,3 @@
-require('dotenv').config( {path:'./src/config/.env'} )
 const bcrypt = require('bcrypt');
 const UserModel = require('../model/user-model');
 

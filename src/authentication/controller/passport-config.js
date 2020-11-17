@@ -1,4 +1,3 @@
-require('dotenv').config( {path:'./src/config/.env'} )
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
