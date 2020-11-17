@@ -1,8 +1,8 @@
+let crypto = require('crypto');
+
 //Read
 
-const {
-  ArticleModel
-} = require("./article-model");
+const {ArticleModel} = require("./article-model");
 
 exports.findAll = (req, res) => {
   ArticleModel.find()
@@ -86,7 +86,7 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-exports.uploadFiles = (req, res) => {
+exports.uploadFile = (req, res) => {
   try {
     if (!req.files) {
       res.send({
@@ -94,18 +94,14 @@ exports.uploadFiles = (req, res) => {
         message: 'No file uploaded'
       });
     } else {
-      
-      let photo = req.files.photo;
-      var datetime = new Date();
 
+      let photo = req.files.photo;
+      let datetime = new Date();
       datetime.toISOString();
 
-      var crypto = require('crypto');
-      var hash = crypto.createHash('sha256').update(photo.name + datetime.toISOString()).digest('hex');
-      console.log(hash);
+      let hash = crypto.createHash('sha256').update(photo.name + datetime.toISOString()).digest('hex');
 
       photo.name = hash + photo.name.substring(photo.name.indexOf('.'), photo.name.length);
-      console.log(photo.name);
 
       //move photo to uploads directory
       photo.mv('./uploads/' + photo.name);
