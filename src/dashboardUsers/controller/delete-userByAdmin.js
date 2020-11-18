@@ -26,7 +26,7 @@ exports.removeUser = () => async (req, res, next) => {
                 
               );
           } else {
-      // Here we have a condition which don't allow an admin to delete his own account 
+      // Here we have a condition which doesn't allow an admin to delete his own account 
 
             if(req.userEmail==foundUser.email){
               return res
