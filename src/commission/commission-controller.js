@@ -2,7 +2,7 @@ const { CommissionModel } = require("./commission-model");
 
 //Read
 
-exports.findAll = (req, res) => {
+exports.list = (req, res) => {
   CommissionModel.find()
     .sort({
       title: -1
@@ -18,7 +18,7 @@ exports.findAll = (req, res) => {
 };
 
 //Update
-exports.updateCommission = (req, res) => {
+exports.update = (req, res) => {
 
   CommissionModel.findByIdAndUpdate(req.query.id, req.body, {
     new: true
@@ -38,23 +38,23 @@ exports.updateCommission = (req, res) => {
     });
 };
 
-exports.createAll = (req, res) => {
-    CommissionModel.create(req.body)
-    
-        .then((commissions) => {
-            res.status(200).send(commissions);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || "Error Occured",
-            });
-        });
+exports.create = (req, res) => {
+  CommissionModel.create(req.body)
+
+    .then((commissions) => {
+      res.status(200).send(commissions);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error Occured",
+      });
+    });
 };
 
 
 
 exports.remove = (req, res) => {
-  
+
   CommissionModel.findByIdAndRemove(req.query.id)
     .then((commission) => {
       if (!commission) {

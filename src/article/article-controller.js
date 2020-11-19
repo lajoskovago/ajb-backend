@@ -2,7 +2,7 @@
 
 const { ArticleModel } = require("./article-model");
 
-exports.findAll = (req, res) => {
+exports.list = (req, res) => {
     ArticleModel.find()
         .sort({
             title: -1
@@ -20,7 +20,7 @@ exports.findAll = (req, res) => {
 
 //Update
 
-exports.updateArticle = (req, res) => {
+exports.update = (req, res) => {
     if (!req.body.title || !req.body.subtitle || !req.body.content) {
         return res.status(400).send({
             message: "required fields cannot be empty",
@@ -65,7 +65,7 @@ exports.create = (req, res) => {
 
 
 
-  exports.deleteAll = (req, res) => {
+  exports.remove = (req, res) => {
     ArticleModel.findByIdAndRemove(req.query.id)
       .then((article) =>  {
         if (!article) {
