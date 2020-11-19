@@ -2,6 +2,30 @@
 
 const { ClubModel } = require("./club-model");
 
+exports.findOne = (req, res) => {
+  ClubModel.findById(req.params.id)
+    .then((club) => {
+      let output={
+        data:clubs,
+        error:null
+      };
+      if (!club) {
+        return res.status(404).send({
+          error: "no club found",
+          data:null
+        });
+      }
+      res.status(200).send(output);
+      console.log(club);
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        error: "Error Occured",
+        data:null
+      });
+    });
+};
+
 exports.findAll = (req, res) => {
     ClubModel.find()
     .sort({
