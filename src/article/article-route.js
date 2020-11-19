@@ -1,10 +1,15 @@
 const { Router } = require("express");
+const { authorizeUser } = require('../authentication/controller/authorization-controller');
+const ROLES = { Admin:'admin', Customer:'customer' }
 
-const { list, update, create, remove } = require("./article-controller");
+const { list, update, create, remove, uploadFile } = require("./article-controller");
 
 const articleRouter =   Router(); 
 articleRouter.get('/list', list);
-articleRouter.put('/update',update);
-articleRouter.post('/create',create);
-articleRouter.delete('/delete',remove);
+articleRouter.put('/update',authorizeUser(ROLES.Admin),update);
+articleRouter.post('/create',authorizeUser(ROLES.Admin),create);
+articleRouter.delete('/delete',authorizeUser(ROLES.Admin),remove);
+articleRouter.post('/upload-file', authorizeUser(ROLES.Admin), uploadFile);
+
+
 exports.articleRouter = articleRouter;

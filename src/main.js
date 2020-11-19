@@ -1,20 +1,43 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const morgan = require('morgan');
+const _ = require('lodash');
+
 const mongoose = require('mongoose' );
-const { testRouter } = require('./test/test-route');
 const bodyParser = require('body-parser');
-const { articleRouter } = require('./Article/article-route');
+const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, './config/.env')});
+const cookieParser = require('cookie-parser');
+const connectDB =require('./config/connectdb');
+
+connectDB();
+
+const port = process.env.PORT || 3000;
+
+const app = express();
+
+const authentication=require('./authentication/path/auth-routes');
+
+const { testRouter } = require('./test/test-route');
+const { articleRouter } = require('./article/article-route');
 const { clubRouter } = require('./club/club-route');
 const { commissionRouter} = require('./commission/commission-route');
 
+app.use(fileUpload({
+    createParentPath: true
+}));
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(cookieParser());
 
-app.use('/api/article', articleRouter);
+app.use('/api/v1/authentication',authentication)
+
 app.use('/api/club', clubRouter);
-  
+
 app.use('/api/commission', commissionRouter);
 
 app.use('/api/test', testRouter);
@@ -24,10 +47,3 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
 
-mongoose.connect('mongodb+srv://Sergiu:123@cluster0.6pyam.mongodb.net/ajb-backend?retryWrites=true&w=majority', {useNewUrlParser: true});
-mongoose.connection.on('error', (err) => {
-    console.log(err);
-})
-mongoose.connection.on('open', () => {
-    console.log('mongoose connected');
-})

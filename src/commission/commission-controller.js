@@ -59,10 +59,10 @@ exports.remove = (req, res) => {
     .then((commission) => {
       if (!commission) {
         return res.status(404).send({
-          message: "Comission not found ",
+          message: "Commission not found ",
         });
       }
-      res.send({ message: "Comission deleted successfully!" });
+      res.send({ message: "Commission deleted successfully!" });
     })
     .catch((err) => {
       return res.status(500).send({
