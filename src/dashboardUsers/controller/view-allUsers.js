@@ -1,5 +1,3 @@
-require("../../authentication/controller/passport-config");
-
 const UserModel = require("../../authentication/model/user-model");
 
 exports.listAllUsers = ()=> async (req, res, next) => {
@@ -7,7 +5,7 @@ exports.listAllUsers = ()=> async (req, res, next) => {
   const countAllUsers = await UserModel.countDocuments().exec();
     await UserModel.find().then((users) => {
  
-        users.forEach(function (user) {
+        users.forEach(user => {
         let info = {};
         
         info.firstname = user.firstname;

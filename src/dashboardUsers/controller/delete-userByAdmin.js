@@ -1,19 +1,23 @@
-require("../../authentication/controller/passport-config");
-
 const mongoose = require("mongoose");
 const UserModel = require("../../authentication/model/user-model");
 
 exports.removeUser = () => async (req, res, next) => {
-  {
- 
-        const validationId = mongoose.Types.ObjectId.isValid(req.body._id);
+  const { _id } = req.body;
+
+      if(!_id){
+    return res.status(400).json({
+      error: "Sorry, but a valid id is needed to complete the operation. Please enter one.",
+      data: []
+    });
+  }
+        const validationId = mongoose.Types.ObjectId.isValid(_id);
         if (!validationId) {
           return res.status(400).json({
             error: "Sorry, but provided id is inccorect!",
             data: []
           });
         } else {
-          const { _id } = req.body;
+          
           const foundUser = await UserModel.findOne({ _id });
 
           if (!foundUser) {
@@ -26,7 +30,7 @@ exports.removeUser = () => async (req, res, next) => {
                 
               );
           } else {
-      // Here we have a condition which don't allow an admin to delete his own account 
+      // Here we have a condition which doesn't allow an admin to delete his own account 
 
             if(req.userEmail==foundUser.email){
               return res
@@ -37,11 +41,10 @@ exports.removeUser = () => async (req, res, next) => {
               })
             } else {
             await UserModel.findByIdAndRemove({ _id });
-            req.id = req.body._id;
+            req.id = _id;
             next();
           }
         }
         }
-      }
   };
 

@@ -29,7 +29,7 @@ router
     res.status(200).json({
       error: null,
       data:[{
-        message: "This is the list of all users",
+        message: "This is the list of all users.",
         NumberofUsers : req.numberOfUsers,
         ListOfUsers: req.users,
 
@@ -57,8 +57,9 @@ router
   .put(authorizeUser(process.env.ADMIN_ROLE),updateUser(), (req, res) => {
     res.status(200).json({
       error : null,
+      warrning: req.warrning,
       data : [{
-        message: "Your data has been successfully registered!(You are the admin)"
+        message: "Your data has been successfully registered!(You are the admin)",
       }]
       
     });
@@ -71,7 +72,7 @@ router
     res.status(200).send({
       error : null,
       data : [{
-        message: "The user was deleted successfully.!(You are the admin)",
+        message: "The user was deleted successfully!(You are the admin)",
         providedId :req.id
       }]
       
