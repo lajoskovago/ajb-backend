@@ -124,7 +124,7 @@ res.status(200).json({
 });
 
 //reset password
-router.route('/reset/:token').post(ResetPassword,(req,res) => {
+router.route('/reset').post(ResetPassword,(req,res) => {
 res.status(200).json({
     error: null,
     data: [

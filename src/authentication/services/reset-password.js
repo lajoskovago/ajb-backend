@@ -22,7 +22,7 @@ exports.ResetPassword = (req,res,next)=> {
          }
 
      //resolves the only once valid link problem
-     const user = await UserModel.findOne( { resetPasswordToken: req.params.token} )
+     const user = await UserModel.findOne( { resetPasswordToken: req.body.token} ) //changed from params -> body
      if (!user) {
          return res.status(400).json({
              error: 'Password reset token is invalid or has expired.',
