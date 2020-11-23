@@ -1,4 +1,3 @@
-require('dotenv').config({ path:'./src/config/.env' })
 const passport = require('passport');
 require('./passport-config');
 

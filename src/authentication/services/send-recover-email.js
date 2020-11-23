@@ -2,8 +2,6 @@ const UserModel = require('../model/user-model');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 require('../controller/passport-config');
-const dotenv = require('dotenv');
-dotenv.config( {path:'./src/config/.env'} );
 
 exports.SendRecoverEmail = async(req,res,next) => {
 
