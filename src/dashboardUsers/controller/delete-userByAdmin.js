@@ -13,7 +13,7 @@ exports.removeUser = () => async (req, res, next) => {
         const validationId = mongoose.Types.ObjectId.isValid(_id);
         if (!validationId) {
           return res.status(400).json({
-            error: "Sorry, but provided id is inccorect!",
+            error: "Sorry, but provided id is incorrect(must be ObjectId)!",
             data: []
           });
         } else {
