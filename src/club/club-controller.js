@@ -15,7 +15,6 @@ exports.findOne = (req, res) => {
         data:club,
         error: null
       });
-      console.log(club);
     })
     .catch((err) => {
       console.error(err);

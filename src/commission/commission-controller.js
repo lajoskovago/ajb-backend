@@ -15,7 +15,6 @@ exports.findOne = (req, res) => {
         data:comission,
         error: null
       });
-      console.log(comission);
     })
     .catch((err) => {
       console.error(err);

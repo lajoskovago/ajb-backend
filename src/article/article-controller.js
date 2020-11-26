@@ -17,7 +17,6 @@ exports.findOne = (req, res) => {
         data:article,
         error: null
       });
-      console.log(article);
     })
     .catch((err) => {
       console.error(err);
