@@ -19,6 +19,10 @@ const app = express();
 
 const authentication=require('./authentication/path/auth-routes');
 
+
+const users=require('./users/path/users-routes');
+const dashUsers=require('./dashboardUsers/path/dashUsers-routes');
+
 const { testRouter } = require('./test/test-route');
 const { articleRouter } = require('./article/article-route');
 const { clubRouter } = require('./club/club-route');
@@ -42,6 +46,9 @@ app.use('/api/commission', commissionRouter);
 
 app.use('/api/test', testRouter);
 app.use('/api/article', articleRouter);
+
+app.use('/api/users', users);
+app.use('/api/dashboard/users', dashUsers);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
