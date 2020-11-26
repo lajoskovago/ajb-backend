@@ -2,7 +2,30 @@ const { CommissionModel } = require("./commission-model");
 
 //Read
 
-exports.findAll = (req, res) => {
+exports.findOne = (req, res) => {
+  CommissionModel.findById(req.query.id)
+    .then((comission) => {
+      if (!comission) {
+        return res.status(404).send({
+          error: "no comission found",
+          data:null
+        });
+      }
+      res.status(200).send({
+        data:comission,
+        error: null
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).send({
+        error: "Error Occured",
+        data:null
+      });
+    });
+};
+
+exports.list = (req, res) => {
   CommissionModel.find()
     .sort({
       title: -1
@@ -18,7 +41,7 @@ exports.findAll = (req, res) => {
 };
 
 //Update
-exports.updateCommission = (req, res) => {
+exports.update = (req, res) => {
 
   CommissionModel.findByIdAndUpdate(req.query.id, req.body, {
     new: true
@@ -38,7 +61,14 @@ exports.updateCommission = (req, res) => {
     });
 };
 
-exports.createAll = (req, res) => {
+
+exports.create = (req, res) => {
+
+  if (!req.body.title || !req.body.subtitle){
+    return res.status(400).send({
+      message: "Required field can not be empty",
+    });
+  }
     CommissionModel.create(req.body)
     
         .then((commissions) => {
@@ -50,7 +80,6 @@ exports.createAll = (req, res) => {
             });
         });
 };
-
 
 
 exports.remove = (req, res) => {
