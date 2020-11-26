@@ -6,6 +6,7 @@ clubRouter.post("/create", create);
 clubRouter.get('/list', list);
 clubRouter.put('/update',update);
 clubRouter.delete("/delete", remove);
+clubRouter.get('/get', findOne);
 
 
 exports.clubRouter=clubRouter;   

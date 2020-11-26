@@ -47,7 +47,7 @@ passport.use('jwtRefresh',new JWTStrategy({
 
 //jwt strategy for recover password functionality
 passport.use('jwtRecover',new JWTStrategy({
-    jwtFromRequest: req => req.params.token,
+    jwtFromRequest: req => req.body.token,
     secretOrKey: process.env.RECOVER_TOKEN_SECRET
 },
 (jwtPayload,done) => {
