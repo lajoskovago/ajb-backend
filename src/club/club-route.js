@@ -8,4 +8,5 @@ clubRouter.put('/update',update);
 clubRouter.delete("/delete", remove);
 clubRouter.get('/get', findOne);
 
-exports.clubRouter=clubRouter;
+
+exports.clubRouter=clubRouter;   
