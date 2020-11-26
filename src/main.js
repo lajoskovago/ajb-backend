@@ -44,6 +44,6 @@ app.use('/api/test', testRouter);
 app.use('/api/article', articleRouter);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at https://localhost:${port}`);
 });
 
