@@ -10,11 +10,15 @@ exports.list = (req, res) => {
       title: -1
     })
     .then((articles) => {
-      res.status(200).send(articles);
+      res.status(200).send({
+        data: articles,
+        error: null
+      });
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error Occured",
+        error: "Error Occured",
+        data: null
       });
     });
 
@@ -25,7 +29,8 @@ exports.list = (req, res) => {
 exports.update = (req, res) => {
   if (!req.body.title || !req.body.subtitle || !req.body.content) {
     return res.status(400).send({
-      message: "required fields cannot be empty",
+      error: "required fields cannot be empty",
+      data: null
     });
   }
   ArticleModel.findByIdAndUpdate(req.query.id, req.body, {
@@ -34,57 +39,67 @@ exports.update = (req, res) => {
     .then((article) => {
       if (!article) {
         return res.status(404).send({
-          message: "no article found",
+          error: "no article found",
+          data: null
         });
       }
-      res.status(200).send(article);
+      res.status(200).send({
+        data: article,
+        error: null
+      });
     })
     .catch((err) => {
       return res.status(404).send({
         message: "error while updating the post",
+        data: null
       });
     });
 }
-
-
 
 exports.create = (req, res) => {
 
   if (!req.body.title || !req.body.subtitle) {
     return res.status(400).send({
-      message: "Required field can not be empty",
+      error: "Required field can not be empty",
+      data: null
     });
   }
   ArticleModel.create(req.body)
-
     .then((data) => {
-      res.send(data);
+      res.send({
+        data:article,
+        error: null
+      });
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the Article.",
+        error: "Some error occurred while creating the Article.",
+        data: null
       });
     });
 };
-
-
 
 exports.remove = (req, res) => {
   ArticleModel.findByIdAndRemove(req.query.id)
     .then((article) => {
       if (!article) {
         return res.status(404).send({
-          message: "Article not found ",
+          error: "Article not found ",
+          data: null
         });
       }
-      res.send({ message: "Article deleted successfully!" });
+      res.send({
+        data: article,
+        error: null
+      });
     })
     .catch((err) => {
       return res.status(500).send({
-        message: "Could not delete article ",
+        error: "Could not delete article ",
+        data: null
       });
     })
-  }
+}
 
 
 exports.uploadFile = (req, res) => {

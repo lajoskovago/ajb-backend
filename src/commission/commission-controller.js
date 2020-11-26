@@ -8,11 +8,16 @@ exports.list = (req, res) => {
       title: -1
     })
     .then((commissions) => {
-      res.status(200).send(commissions);
+      res.status(200).send({
+        data: commissions,
+        error: null
+      }
+      );
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error Occured",
+        error: "Error Occured",
+        data: null
       });
     });
 };
@@ -26,14 +31,20 @@ exports.update = (req, res) => {
     .then((commission) => {
       if (!commission) {
         return res.status(404).send({
-          message: "no commission found",
+          error: "no commission found",
+          data: null
         });
       }
-      res.status(200).send(commission);
+      res.status(200).send({
+        data: commission,
+        error: null
+      }
+      );
     })
     .catch((err) => {
       return res.status(404).send({
-        message: "error while updating the commission",
+        error: "error while updating the commission",
+        data: null
       });
     });
 };
@@ -42,11 +53,15 @@ exports.create = (req, res) => {
   CommissionModel.create(req.body)
 
     .then((commissions) => {
-      res.status(200).send(commissions);
+      res.status(200).send({
+        data: commissions,
+        error: null
+      });
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error Occured",
+        error: "Error Occured",
+        data: null
       });
     });
 };
@@ -59,14 +74,19 @@ exports.remove = (req, res) => {
     .then((commission) => {
       if (!commission) {
         return res.status(404).send({
-          message: "Commission not found ",
+          error: "Commission not found ",
+          data: null
         });
       }
-      res.send({ message: "Commission deleted successfully!" });
+      res.send({
+        data: commission,
+        error: null
+      });
     })
     .catch((err) => {
       return res.status(500).send({
-        message: "Could not delete comission ",
+        error: "Could not delete comission ",
+        data: null
       });
     });
 };
