@@ -5,28 +5,30 @@ let crypto = require('crypto');
 const {ArticleModel} = require("./article-model");
 
 exports.findOne = (req, res) => {
-  ArticleModel.findById(req.params.id)
+  ArticleModel.findById(req.query.id)
     .then((article) => {
-      let output={
-        data:articles,
-        error:null
-      };
       if (!article) {
         return res.status(404).send({
           error: "no article found",
           data:null
         });
       }
-      res.status(200).send(output);
+      res.status(200).send({
+        data:article,
+        error: null
+      });
       console.log(article);
     })
     .catch((err) => {
+      console.error(err);
       return res.status(500).send({
-        message: err.message || "Error Occured",
+        error: "Error Occured",
         data:null
       });
     });
 };
+
+
 
 exports.list = (req, res) => {
   ArticleModel.find()

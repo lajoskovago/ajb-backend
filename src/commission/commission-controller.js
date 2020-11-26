@@ -2,6 +2,30 @@ const { CommissionModel } = require("./commission-model");
 
 //Read
 
+exports.findOne = (req, res) => {
+  CommissionModel.findById(req.query.id)
+    .then((comission) => {
+      if (!comission) {
+        return res.status(404).send({
+          error: "no comission found",
+          data:null
+        });
+      }
+      res.status(200).send({
+        data:comission,
+        error: null
+      });
+      console.log(comission);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).send({
+        error: "Error Occured",
+        data:null
+      });
+    });
+};
+
 exports.list = (req, res) => {
   CommissionModel.find()
     .sort({

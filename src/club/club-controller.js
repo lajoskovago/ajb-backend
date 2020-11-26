@@ -20,7 +20,7 @@ exports.findOne = (req, res) => {
     .catch((err) => {
       console.error(err);
       return res.status(500).send({
-        message: err|| "Error Occured",
+        error: "Error Occured",
         data:null
       });
     });
