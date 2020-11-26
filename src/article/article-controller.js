@@ -75,7 +75,7 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       return res.status(404).send({
-        message: "error while updating the post",
+        error: "error while updating the post",
         data: null
       });
     });
