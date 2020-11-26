@@ -3,30 +3,30 @@
 const { ClubModel } = require("./club-model");
 
 exports.findOne = (req, res) => {
-  ClubModel.findById(req.params.id)
+  ClubModel.findById(req.query.id)
     .then((club) => {
-      let output={
-        data:clubs,
-        error:null
-      };
       if (!club) {
         return res.status(404).send({
           error: "no club found",
           data:null
         });
       }
-      res.status(200).send(output);
+      res.status(200).send({
+        data:club,
+        error: null
+      });
       console.log(club);
     })
     .catch((err) => {
+      console.error(err);
       return res.status(500).send({
-        error: "Error Occured",
+        message: err|| "Error Occured",
         data:null
       });
     });
 };
 
-exports.findAll = (req, res) => {
+exports.list = (req, res) => {
     ClubModel.find()
     .sort({
         title: -1
@@ -40,20 +40,6 @@ exports.findAll = (req, res) => {
         });
     });
 };
-
-exports.createAll = (req, res) => {
-    ClubModel.create(req.body)
-    
-        .then((clubs) => {
-            res.status(200).send(clubs);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || "Error Occured",
-            });
-        });
-};
-
 
 
 exports.create = (req, res) => {
@@ -82,7 +68,7 @@ exports.create = (req, res) => {
       });
   };
 
-  exports.updateClub = (req, res) => {
+  exports.update = (req, res) => {
     
     ClubModel.findByIdAndUpdate(req.query.id, req.body, {
             new: true
@@ -102,7 +88,7 @@ exports.create = (req, res) => {
         });
 };
 
-  exports.deleteAll = (req, res) => {
+  exports.remove = (req, res) => {
     ClubModel.findByIdAndRemove(req.query.id)
       .then((club) => {
         if (!club) {
@@ -113,6 +99,7 @@ exports.create = (req, res) => {
         res.send({ message: "User deleted successfully!" });
       })
       .catch((err) => {
+        console.error(err);
         return res.status(500).send({
           message: "Could not delete club ",
         });

@@ -1,11 +1,11 @@
 const { Router } = require("express");
-const { findAll, createAll, updateClub, deleteAll } = require("./club-controller");
+const { list, create, update, remove, findOne } = require("./club-controller");
 const clubRouter = Router();
 
-clubRouter.post("/create", createAll);
-clubRouter.get('/list', findAll);
-clubRouter.put('/update',updateClub);
-clubRouter.delete("/delete", deleteAll);
+clubRouter.post("/create", create);
+clubRouter.get('/list', list);
+clubRouter.put('/update',update);
+clubRouter.delete("/delete", remove);
 clubRouter.get('/get', findOne);
 
 exports.clubRouter=clubRouter;

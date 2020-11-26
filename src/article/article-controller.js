@@ -4,7 +4,31 @@ let crypto = require('crypto');
 
 const {ArticleModel} = require("./article-model");
 
-exports.findAll = (req, res) => {
+exports.findOne = (req, res) => {
+  ArticleModel.findById(req.params.id)
+    .then((article) => {
+      let output={
+        data:articles,
+        error:null
+      };
+      if (!article) {
+        return res.status(404).send({
+          error: "no article found",
+          data:null
+        });
+      }
+      res.status(200).send(output);
+      console.log(article);
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        message: err.message || "Error Occured",
+        data:null
+      });
+    });
+};
+
+exports.list = (req, res) => {
   ArticleModel.find()
     .sort({
       title: -1
@@ -22,7 +46,7 @@ exports.findAll = (req, res) => {
 
 //Update
 
-exports.updateArticle = (req, res) => {
+exports.update = (req, res) => {
   if (!req.body.title || !req.body.subtitle || !req.body.content) {
     return res.status(400).send({
       message: "required fields cannot be empty",
@@ -65,9 +89,7 @@ exports.create = (req, res) => {
     });
 };
 
-
-
-exports.deleteAll = (req, res) => {
+exports.remove = (req, res) => {
   ArticleModel.findByIdAndRemove(req.query.id)
     .then((article) => {
       if (!article) {

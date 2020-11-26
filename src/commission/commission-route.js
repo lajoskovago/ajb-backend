@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const { findAll, updateCommission, remove, createAll} = require("./commission-controller");
+const { createConnection } = require("mongoose");
+const { list, update, remove, create} = require("./commission-controller");
 const commissionRouter = Router();
 
-commissionRouter.post('/create', createAll);
-commissionRouter.get('/list', findAll);
-commissionRouter.put('/update',updateCommission);
+commissionRouter.post('/create', create);
+commissionRouter.get('/list', list);
+commissionRouter.put('/update',update);
 commissionRouter.delete('/delete', remove);
 
 exports.commissionRouter=commissionRouter;
