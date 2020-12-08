@@ -92,7 +92,7 @@ exports.create = (req, res) => {
   ArticleModel.create(req.body)
     .then((data) => {
       res.send({
-        data:article,
+        data: data,
         error: null
       });
     })
@@ -131,8 +131,8 @@ exports.uploadFile = (req, res) => {
   try {
     if (!req.files) {
       res.send({
-        status: false,
-        message: 'No file uploaded'
+        data: null,
+        error: 'No file uploaded'
       });
     } else {
 

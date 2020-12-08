@@ -77,7 +77,8 @@ exports.create = (req, res) => {
 
   if (!req.body.title || !req.body.subtitle){
     return res.status(400).send({
-      message: "Required field can not be empty",
+      error: "Required field can not be empty",
+      data: null
     });
   }
     CommissionModel.create(req.body)
@@ -87,7 +88,8 @@ exports.create = (req, res) => {
         })
         .catch((err) => {
             res.status(500).send({
-                message: err.message || "Error Occured",
+                error: "Error Occured",
+                data: null
             });
         });
 };
