@@ -117,7 +117,6 @@ res.status(200).json({
     data: [
         {
             message:`The request was accepted.A reset email should be sent to ${req.body.email}.Please check your email`,
-            link:`http://localhost:3000/api/v1/authentication/reset/${req.tokenVar}`
         }
     ]
   });

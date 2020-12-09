@@ -1,51 +1,52 @@
-require("../../authentication/controller/passport-config");
-
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const UserModel = require("../../authentication/model/user-model");
 
-exports.updateAnUser = () => async (req, res, next) => {
+exports.updateUser = () => async (req, res, next) => {
   {
     const hashConst = 10;
-    var obj = {};
+    const { _id } = req.body;
+    const userData = req.body;
 
-    const id = mongoose.Types.ObjectId.isValid(req.body._id);
-    if (!id) {
+    const validationId = mongoose.Types.ObjectId.isValid(_id);
+    if (!validationId) {
       return res.status(400).json({
-        error: "Sorry, but your id is inccorect!",
+        error: "Sorry, but provided id is incorrect(must be ObjectId)!",
         data: [],
       });
     } else {
-      const keys = ["name", "firstname", "phone", "role", "password"];
-
-      for (var itemsFromBodyIndex in req.body) {
-        if (keys.includes(itemsFromBodyIndex)) {
-          if (itemsFromBodyIndex == "password") {
-            const passwordHash = await bcrypt.hash(
-              itemsFromBodyIndex,
-              hashConst
-            );
-            obj[itemsFromBodyIndex] = passwordHash;
-          } else {
-            obj[itemsFromBodyIndex] = req.body[itemsFromBodyIndex];
-          }
-        }
-      }
-
-      const { _id } = req.body;
       const foundUser = await UserModel.findOne({ _id });
       if (!foundUser) {
-        return res
-          .status(400)
-          .json({
-            error: "Sorry, this user no longer exists in the database",
-            data: []
-          });
+        return res.status(400).json({
+          error: "Sorry, this user doesn't exist in the database!",
+          data: [],
+        });
       } else {
-        await UserModel.findByIdAndUpdate({ _id }, obj);
+// Here we have a conditional block that checks if the edited mail exists in the database and if the password has been changed it will be encrypted and sent like this.
+        
+          if(userData.password && userData.email){
+            userData.password = await bcrypt.hash(userData.password, hashConst);
+              const foundEmail = await UserModel.findOne({email: userData.email,});
+            if (foundEmail && foundEmail._id!=_id) {
+              req.warrning = `Provided email(${userData.email}) is already used by another account, but the rest of the data was saved. Please try another one`;
+              userData.email = foundUser.email;
+            }
+          }
+          if (userData.password) {
+            userData.password = await bcrypt.hash(userData.password, hashConst);
+          } else {
+            const foundEmail = await UserModel.findOne({
+              email: userData.email,
+            });
+            if (foundEmail && foundEmail._id!=_id) {
+              req.warrning = `Provided email(${userData.email}) is already used by another account, but the rest of the data was saved. Please try another one.`;
+              userData.email = foundUser.email;
+            }
+          }        
+
+        await UserModel.findByIdAndUpdate({ _id }, userData);
         next();
       }
     }
   }
-  req, res;
 };

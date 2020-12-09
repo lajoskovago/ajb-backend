@@ -51,6 +51,6 @@ app.use('/api/users', users);
 app.use('/api/dashboard/users', dashUsers);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at https://localhost:${port}`);
 });
 

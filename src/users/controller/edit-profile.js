@@ -1,28 +1,18 @@
-require("../../authentication/controller/passport-config");
-
 const UserModel = require("../../authentication/model/user-model");
 
 exports.updateProfile = async (req, res, next) => {
-  var obj = {};
-  var email = {};
-  email.email = req.userEmail;
-  const keys = ["name", "firstname", "phone"];
-
-  for (var itemsFromBodyIndex in req.body) {
-    if (keys.includes(itemsFromBodyIndex)) {
-      obj[itemsFromBodyIndex] = req.body[itemsFromBodyIndex];
-    }
-  }
-  const foundUser = await UserModel.findOne(email);
+  const userData = req.body;
+  const email = req.userEmail;
+  
+  const foundUser = await UserModel.findOne({email});
   if (!foundUser) {
     return res.status(400).json({
-      error: "Sorry, your data cannot be accessed",
+      error: "Sorry, your data cannot be accessed!",
       data: []
     });
   } else {
-    await UserModel.findOneAndUpdate(email, obj);
+    await UserModel.findOneAndUpdate({email}, userData);
     next();
   }
 
-  req, res;
 };

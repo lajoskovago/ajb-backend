@@ -22,12 +22,13 @@ exports.LogIn = (req,res,next) => {
            const payload = {
                email: user.email,
                role: user.role,
-               expires: Date.now() + parseInt(process.env.JWT_EXPIRATION_MS),
+               expires: Date.now() + parseInt(process.env.JWT_EXPIRATION_MS)
             };
 
            const refreshPayload = {
             email: user.email,
             role: user.role,
+            expires: Date.now() + parseInt(process.env.JWT_REFRESH_MS)
            }
 
            req.login(payload,{ session: false }, (error) => {

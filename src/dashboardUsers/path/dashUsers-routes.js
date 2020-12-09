@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { createAnUser } = require("../controller/create-userByAdmin");
+const { createUser } = require("../controller/create-userByAdmin");
 const { getUser } = require("../controller/get-userByAdmin");
-const { updateAnUser } = require("../controller/edit-userByAdmin");
-const { removeAnUser } = require("../controller/delete-userByAdmin");
+const { updateUser } = require("../controller/edit-userByAdmin");
+const { removeUser } = require("../controller/delete-userByAdmin");
 const { authorizeUser } = require("../../authentication/controller/authorization-controller");
 const { paginateUser } = require("../../middleware/controller/paginationUser-controller");
 const userModel = require("../../authentication/model/user-model");
@@ -12,11 +12,11 @@ const userModel = require("../../authentication/model/user-model");
 // Create user by only Admin
 router
   .route("/create-user")
-  .post(authorizeUser(process.env.ADMIN_ROLE),createAnUser(), (req, res) => {
+  .post(authorizeUser(process.env.ADMIN_ROLE),createUser(), (req, res) => {
     res.status(200).json({
       error: null,
       data: [{
-       message: "Your data has been successfully registered!(Your are the admin)",
+       message: "Your data has been successfully registered!(You are the admin)",
        newaccount: req.email,
       }]
       
@@ -30,7 +30,7 @@ router
     res.status(200).json({
       error: null,
       data:[{
-        message: "This is the list of all users",
+        message: "This is the list of all users.",
         NumberofUsers : req.numberOfUsers,
         ListOfUsers: req.list,
 
@@ -55,11 +55,12 @@ router
 //Edit user profile
 router
   .route("/edit-user")
-  .put(authorizeUser(process.env.ADMIN_ROLE),updateAnUser(), (req, res) => {
+  .put(authorizeUser(process.env.ADMIN_ROLE),updateUser(), (req, res) => {
     res.status(200).json({
       error : null,
+      warrning: req.warrning,
       data : [{
-        message: "Your data has been successfully registered!(Your are the admin)"
+        message: "Your data has been successfully registered!(You are the admin)",
       }]
       
     });
@@ -68,11 +69,12 @@ router
 //Delete user
 router
   .route("/delete-user")
-  .delete(authorizeUser(process.env.ADMIN_ROLE),removeAnUser(), (req, res) => {
+  .delete(authorizeUser(process.env.ADMIN_ROLE),removeUser(), (req, res) => {
     res.status(200).send({
       error : null,
       data : [{
-        message: "The user with next id " +req.id +" was deleted successfully.!(Your are the admin)"
+        message: "The user was deleted successfully!(You are the admin)",
+        providedId :req.id
       }]
       
     });
