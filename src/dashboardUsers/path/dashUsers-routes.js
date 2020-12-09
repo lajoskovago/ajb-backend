@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const { createAnUser } = require("../controller/create-userByAdmin");
-const { listAllUsers } = require("../controller/view-allUsers");
 const { getUser } = require("../controller/get-userByAdmin");
 const { updateAnUser } = require("../controller/edit-userByAdmin");
 const { removeAnUser } = require("../controller/delete-userByAdmin");
 const { authorizeUser } = require("../../authentication/controller/authorization-controller");
+const { paginateUser } = require("../../middleware/controller/paginationUser-controller");
+const userModel = require("../../authentication/model/user-model");
 
 // Create user by only Admin
 router
@@ -25,13 +26,13 @@ router
 // View All Users by only Admin
 router
   .route("/view-users")
-  .get(authorizeUser(process.env.ADMIN_ROLE),listAllUsers(), (req, res) => {
+  .get(authorizeUser(process.env.ADMIN_ROLE),paginateUser(userModel), (req, res) => {
     res.status(200).json({
       error: null,
       data:[{
         message: "This is the list of all users",
         NumberofUsers : req.numberOfUsers,
-        ListOfUsers: req.users,
+        ListOfUsers: req.list,
 
       }]
       
