@@ -46,8 +46,8 @@ exports.LogIn = (req,res,next) => {
               req.userEmail = user.email;
               req.userRole = user.role;
 
-              res.cookie('jwt',token,{httpOnly:true});
-              res.cookie('refresh',refreshToken,{httpOnly:true});
+              res.cookie('jwt',token,{httpOnly: true,secure: true});
+              res.cookie('refresh',refreshToken,{httpOnly: true,secure: true});
 
 
               next();
