@@ -1,45 +1,20 @@
+const { configPage } = require("../../middleware/controller/configPage");
+
 exports.paginateUser = (model) => async (req, res, next) => {
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit);
-
-    const results = {};
     const userMap = {};
-    const startIndex = (page) * limit;
-  
-    if(limit<0 || page<0){
-      res.status(400).json({
-        error:  'Limit and page parameters must have a positive value!',
-        data: []
-    })
-    }else{
-  
-    results.lastPage = Math.ceil(await model.countDocuments().exec()/limit)-1;
+    let resultConfigPage = {};
+    let result = {};
 
-    if (page < results.lastPage) {
-      results.next = {
-        page: page + 1,
-        limit: limit,
-      };
-    }
-  
-    if (startIndex > 0) {
-      results.previous = {
-        page: page - 1,
-        limit: limit,
-      };
-    }
-  
-     if(page>results.lastPage){
-      res.status(400).json({ 
-        error:  `The maximum number of page is ${results.lastPage} !`,
-        data: []
-    })
-     }
+    await configPage(req, model).then((data)=>{
+       resultConfigPage = data.config;
+       result = data.result;
+    });
+    
     try {
-      await model.find().limit(limit).skip(startIndex).then((users) => {
+      await model.find().limit(resultConfigPage.limit).skip(resultConfigPage.startIndex).then((users) => {
  
         users.forEach((user) => {
-        var info = {};
+        let info = {};
         
         info.name = user.name;
         info.firstname = user.firstname;
@@ -49,16 +24,15 @@ exports.paginateUser = (model) => async (req, res, next) => {
         userMap[user._id] = info;
       });
     });
-      results.results = userMap;
-      const countAllUsers = await model.countDocuments().exec();
-      req.numberOfUsers = countAllUsers;
-      req.list = results;
+      result.result = userMap;
+      result.total = await model.countDocuments().exec();
+      req.list = result;
       next();
+      
     } catch (e) {
       res.status(500).json({ 
         error: e.message,
         data: [] 
       });
     }
-  }
-  };
+}

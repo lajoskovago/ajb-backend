@@ -1,42 +1,20 @@
+const { configPage } = require("../../middleware/controller/configPage");
+
 exports.paginate = (model) => async (req, res, next) => {
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit);
 
-    const results = {};
-    const startIndex = (page) * limit;
-  
-    if(limit<0 || page<0){
-      res.status(400).json({
-        error:  'Limit and page parameters must have a positive value!',
-        data: []
-    })
-    }else{
-  
-    results.lastPage = Math.ceil(await model.countDocuments().exec()/limit)-1;
+  let resultConfigPage = {};
+  let result = {};
 
-    if (page < results.lastPage) {
-      results.next = {
-        page: page + 1,
-        limit: limit,
-      };
-    }
-  
-    if (startIndex > 0) {
-      results.previous = {
-        page: page - 1,
-        limit: limit,
-      };
-    }
-  
-     if(page>results.lastPage){
-      res.status(400).json({ 
-        error:  `The maximum number of page is ${results.lastPage} !`,
-        data: []
-      })
-     }
+  await configPage(req, model).then((data)=>{
+     resultConfigPage = data.config;
+     result = data.result;
+  });
+
     try {
-      results.results = await model.find().limit(limit).skip(startIndex).exec();
-      req.list = results;
+     
+      result.result = await model.find().limit(resultConfigPage.limit).skip(resultConfigPage.startIndex).exec();
+      result.total = await model.countDocuments().exec();
+      req.list = result;
       next();
     } catch (e) {
       res.status(500).json({ 
@@ -44,5 +22,4 @@ exports.paginate = (model) => async (req, res, next) => {
         data: [] 
       });
     }
-  }
   };

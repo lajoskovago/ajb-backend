@@ -7,7 +7,7 @@ const { updateUser } = require("../controller/edit-userByAdmin");
 const { removeUser } = require("../controller/delete-userByAdmin");
 const { authorizeUser } = require("../../authentication/controller/authorization-controller");
 const { paginateUser } = require("../../middleware/controller/paginationUser-controller");
-const userModel = require("../../authentication/model/user-model");
+const  UserModel  = require("../../authentication/model/user-model");
 
 // Create user by only Admin
 router
@@ -26,15 +26,10 @@ router
 // View All Users by only Admin
 router
   .route("/view-users")
-  .get(authorizeUser(process.env.ADMIN_ROLE),paginateUser(userModel), (req, res) => {
+  .get(authorizeUser(process.env.ADMIN_ROLE),paginateUser(UserModel), (req, res) => {
     res.status(200).json({
       error: null,
-      data:[{
-        message: "This is the list of all users.",
-        NumberofUsers : req.numberOfUsers,
-        ListOfUsers: req.list,
-
-      }]
+      data: req.list
       
     });
   });
