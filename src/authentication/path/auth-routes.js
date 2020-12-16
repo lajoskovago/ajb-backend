@@ -13,6 +13,7 @@ const { ResetPassword } = require('../services/reset-password');
 const { LogIn }  = require('../controller/login-controller');
 const { Register } = require('../controller/register-controller');
 const { logoutUser } = require('../controller/logout-controller');
+const { csrfAuthentication } = require('../controller/csfr-authentication-controller');
 
 //sign-up
 router.route('/register').post(Register,(req,res) => {
@@ -22,7 +23,7 @@ router.route('/register').post(Register,(req,res) => {
             {
                 message: 'hi u just singed-in',
                 email: req.userEmail,
-                role: req.userRole
+                role: req.userRole,
             }
         ]
     })
@@ -36,21 +37,21 @@ router.route('/login').post(LogIn,(req,res) => {
             {
                 message: 'hey you just logged in',
                 email: req.userEmail,
-                role: req.userRole
+                role: req.userRole,
             }
         ]
     })
 });
 
 //all roles page
-router.route('/home_page').get(authorizeUser(ROLES.Admin,ROLES.Customer),(req,res) => {
+router.route('/home_page').get(csrfAuthentication,authorizeUser(ROLES.Admin,ROLES.Customer),(req,res) => {
     res.status(200).json({
         error: null,
         data: [
             {
                 message: "hi you are on the home page where everyone has access",
                 email: req.userEmail,
-                role: req.userRole
+                role: req.userRole,
             }
         ]
 })
@@ -64,7 +65,7 @@ res.status(200).json({
         {
             message: "hi you are on the admin page where only u have access u rock star",
             email: req.userEmail,
-            role: req.userRole
+            role: req.userRole,
         }
     ]
 })
@@ -78,40 +79,40 @@ res.status(200).json({
         {
             message: "Hi this is a customer only page",
             email: req.userEmail,
-            role: req.userRole
+            role: req.userRole,
         }
     ]
 })
 });
 
 //refresh token hi this is the refresh page the new token should be in the headers section
-router.route('/refresh_token').post(refreshedToken,(req,res) => {
+router.route('/refresh_token').post(csrfAuthentication,refreshedToken,(req,res) => {
 res.status(200).json({
     error: null,
     data: [
         {
             message: "hi this is the refresh page the new token should be in the headers section",
             email: req.userEmail,
-            role: req.userRole
+            role: req.userRole,
         }
     ]
 })
 });
 
 //logout
-router.route('/logout').delete(logoutUser,(req,res) => {
+router.route('/logout').delete(csrfAuthentication,logoutUser,(req,res) => {
    res.status(200).json({
       error: null,
       data: [
             {
-                message: 'u are logged out and the tokens were deleted from the cookies'
+                message: 'u are logged out and the tokens were deleted from the cookies',
             }
         ]
     });
 });
 
 //send reset email`The request was accepted.A reset email should be sent to ${req.body.email}.Please check your email`
-router.route('/forgot').post(SendRecoverEmail,(req,res) => {
+router.route('/forgot').post(csrfAuthentication,SendRecoverEmail,(req,res) => {
 res.status(200).json({
     error: null,
     data: [
@@ -123,12 +124,12 @@ res.status(200).json({
 });
 
 //reset password
-router.route('/reset').post(ResetPassword,(req,res) => {
+router.route('/reset').post(csrfAuthentication,ResetPassword,(req,res) => {
 res.status(200).json({
     error: null,
     data: [
         {
-            message: 'Your password has been reset'
+            message: 'Your password has been reset',
         }
     ]
   });

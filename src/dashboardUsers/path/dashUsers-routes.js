@@ -7,11 +7,12 @@ const { getUser } = require("../controller/get-userByAdmin");
 const { updateUser } = require("../controller/edit-userByAdmin");
 const { removeUser } = require("../controller/delete-userByAdmin");
 const { authorizeUser } = require("../../authentication/controller/authorization-controller");
+const { csrfAuthentication } = require('../../authentication/controller/csfr-authentication-controller');
 
 // Create user by only Admin
 router
   .route("/create-user")
-  .post(authorizeUser(process.env.ADMIN_ROLE),createUser(), (req, res) => {
+  .post(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE),createUser(), (req, res) => {
     res.status(200).json({
       error: null,
       data: [{
@@ -25,7 +26,7 @@ router
 // View All Users by only Admin
 router
   .route("/view-users")
-  .get(authorizeUser(process.env.ADMIN_ROLE),listAllUsers(), (req, res) => {
+  .get(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE),listAllUsers(), (req, res) => {
     res.status(200).json({
       error: null,
       data:[{
@@ -41,7 +42,7 @@ router
 //Get user by email
 router
   .route("/get-user")
-  .get(authorizeUser(process.env.ADMIN_ROLE),getUser(), (req, res) => {
+  .get(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE),getUser(), (req, res) => {
     res.status(200).json({
       error: null,
       data: [{
@@ -54,7 +55,7 @@ router
 //Edit user profile
 router
   .route("/edit-user")
-  .put(authorizeUser(process.env.ADMIN_ROLE),updateUser(), (req, res) => {
+  .put(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE),updateUser(), (req, res) => {
     res.status(200).json({
       error : null,
       warrning: req.warrning,
@@ -68,7 +69,7 @@ router
 //Delete user
 router
   .route("/delete-user")
-  .delete(authorizeUser(process.env.ADMIN_ROLE),removeUser(), (req, res) => {
+  .delete(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE),removeUser(), (req, res) => {
     res.status(200).send({
       error : null,
       data : [{
