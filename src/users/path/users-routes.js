@@ -4,9 +4,9 @@ const router = express.Router();
 const {authorizeUser} = require("../../authentication/controller/authorization-controller");
 const { getProfile } = require('../controller/view-profile');
 const { updateProfile } = require('../controller/edit-profile');
-
+const { csrfAuthentication } = require('../../authentication/controller/csfr-authentication-controller');
 // Curent user profile
-router.route('/profile').get(authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),getProfile,(req, res) => {
+router.route('/profile').get(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),getProfile,(req, res) => {
 
     res.status(200).json({
         error: null,
@@ -24,7 +24,7 @@ router.route('/profile').get(authorizeUser(process.env.ADMIN_ROLE,process.env.DE
  });
 
  //Edit user profile
- router.route('/edit-profile').put(authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),updateProfile,(req, res) => {
+ router.route('/edit-profile').put(csrfAuthentication,authorizeUser(process.env.ADMIN_ROLE,process.env.DEFAULT_ROLE),updateProfile,(req, res) => {
 
     res.status(200).json({
         error: null,
