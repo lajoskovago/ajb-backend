@@ -76,7 +76,7 @@ exports.update = (req, res) => {
       }
       
       res.status(200).send({
-        data:clubs,
+        data:club,
         error:null
       });
       

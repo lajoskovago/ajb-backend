@@ -75,16 +75,13 @@ exports.update = (req, res) => {
 
 exports.create = (req, res) => {
 
-  if (!req.body.title || !req.body.subtitle){
-    return res.status(400).send({
-      error: "Required field can not be empty",
-      data: null
-    });
-  }
     CommissionModel.create(req.body)
     
         .then((commissions) => {
-            res.status(200).send(commissions);
+            res.status(200).send({
+              data:commissions,
+              error: null
+            });
         })
         .catch((err) => {
             res.status(500).send({
@@ -93,7 +90,6 @@ exports.create = (req, res) => {
             });
         });
 };
-
 
 exports.remove = (req, res) => {
 
